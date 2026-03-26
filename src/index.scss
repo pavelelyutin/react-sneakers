@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f2f2f2;
@@ -9,6 +9,7 @@ body {
 .wrapper {
   max-width: 1080px;
   margin: 0 auto;
+  margin-top: 50px;
   border-radius: 20px;
   background-color: #fff;
 }
@@ -22,6 +23,13 @@ body {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+.btn-reset {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 /* header */
@@ -81,5 +89,60 @@ body {
     margin-bottom: 30px;
     font-size: 32px;
     font-weight: 700;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #f3f3f3;
+  border-radius: 30px;
+  padding: 30px;
+
+  &__image {
+    align-self: center;
+    margin-bottom: 14px;
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    &-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #bdbdbd;
+    }
+
+    &-number {
+      font-weight: 700;
+    }
+  }
+
+  &__button-add {
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding: 10px;
   }
 }
