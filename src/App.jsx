@@ -4,27 +4,28 @@ import Cart from "./components/Cart";
 
 function App() {
   return (
-    <body>
+    <div className="wrapper">
       <Cart />
+      <Header />
 
-      <div className="wrapper">
-        <Header />
-
-        <main>
-          {/* products */}
-          <section className="products">
-            <div className="products__container container">
-              <div className="products__top">
-                <h2 className="products__title">Все кроссовки</h2>
+      <main>
+        {/* products */}
+        <section className="products">
+          <div className="products__container container">
+            <div className="products__top">
+              <h2 className="products__title">Все кроссовки</h2>
+              <div className="products__search">
+                <img src="/images/icons/search.svg" alt="Поиск кроссовок" />
+                <input type="text" placeholder="Поиск..." />
               </div>
-              <ProductsList />
             </div>
-          </section>
-        </main>
+            <ProductsList />
+          </div>
+        </section>
+      </main>
 
-        <footer></footer>
-      </div>
-    </body>
+      <footer></footer>
+    </div>
   );
 }
 
