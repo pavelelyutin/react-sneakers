@@ -144,62 +144,6 @@ img {
   }
 }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 1px solid #f3f3f3;
-  border-radius: 30px;
-  padding: 30px;
-  background-color: #fff;
-  transition: box-shadow .2s ease-in-out, transform .2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 2px 20px -10px rgba(0, 0, 0, 0.15);;
-  }
-
-  &__image {
-    align-self: center;
-    margin-bottom: 14px;
-  }
-
-  &__title {
-    margin: 0;
-    margin-bottom: 14px;
-    font-size: 14px;
-    font-weight: 400;
-  }
-
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__price {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-
-    &-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      color: #bdbdbd;
-    }
-
-    &-number {
-      font-weight: 700;
-    }
-  }
-
-  &__add-favorite {
-    position: absolute;
-    left: 30px;
-    top: 30px;
-  }
-}
 
 /* cart */
 .cart {
