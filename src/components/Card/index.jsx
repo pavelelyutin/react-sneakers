@@ -5,8 +5,12 @@ function Card(props) {
   const [isAdded, setIsAdded] = React.useState(false)
 
   const onClickPlus = () => {
-    setIsAdded(true)
+    setIsAdded(!isAdded)
   }
+
+  React.useEffect(() => {
+    console.log('Переменная изменилась')
+  }, [isAdded])
 
   return (
     <article className="products__card card">

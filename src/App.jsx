@@ -4,10 +4,14 @@ import Header from "./components/Header";
 import Cart from "./components/Cart";
 
 function App() {
+  const [cartOpened, setCartOpened] = React.useState(false)
+
+
   return (
     <div className="wrapper">
-      <Cart />
-      <Header />
+      {cartOpened && <Cart onClose={() => setCartOpened(false)} />}
+
+      <Header onClickCart={() => setCartOpened(true)} />
 
       <main>
         {/* products */}

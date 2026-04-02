@@ -1,4 +1,4 @@
-function Header() {
+function Header(props) {
   return (
     <header className="header">
       <div className="header__container container">
@@ -16,7 +16,7 @@ function Header() {
           </div>
         </div>
         <div className="header__right">
-          <button className="header__cart btn-reset">
+          <button className="header__cart btn-reset" onClick={props.onClickCart}>
             <img
               className="header__cart-icon"
               width={20}

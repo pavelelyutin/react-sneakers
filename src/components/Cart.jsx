@@ -1,16 +1,19 @@
-function Cart() {
+function Cart(props) {
   return (
-    <div className="cart" style={{ display: "none" }}>
+    <div className="cart">
       <div className="cart__drawer">
         <div className="cart__top">
           <h2 className="cart__title">Корзина</h2>
-          <button className="cart__close btn-reset">
+          <button className="cart__close btn-reset" onClick={props.onClose}>
             <img src="/images/icons/remove.svg" alt="Закрыть корзину" />
           </button>
         </div>
 
         <ul className="cart__list list-reset">
-          <li className="cart__item">
+          {console.log(props.items)}
+          {props.items}
+
+          {/* <li className="cart__item">
             <article className="cart__card cart-card">
               <img
                 width={70}
@@ -30,51 +33,7 @@ function Cart() {
                 <img src="/images/icons/remove.svg" alt="Удалить товар" />
               </button>
             </article>
-          </li>
-
-          <li className="cart__item">
-            <article className="cart__card cart-card">
-              <img
-                width={70}
-                src="/images/products/1.jpg"
-                alt=""
-                className="cart-card__image"
-              />
-              <div className="cart-card__info">
-                {" "}
-                <h3 className="cart-card__title">
-                  Мужские Кроссовки Nike Air Max 270
-                </h3>
-                <span className="cart-card__price">19 999 ₽</span>
-              </div>
-
-              <button className="cart-card__remove btn-reset">
-                <img src="/images/icons/remove.svg" alt="Удалить товар" />
-              </button>
-            </article>
-          </li>
-
-          <li className="cart__item">
-            <article className="cart__card cart-card">
-              <img
-                width={70}
-                src="/images/products/1.jpg"
-                alt=""
-                className="cart-card__image"
-              />
-              <div className="cart-card__info">
-                {" "}
-                <h3 className="cart-card__title">
-                  Мужские Кроссовки Nike Air Max 270
-                </h3>
-                <span className="cart-card__price">19 999 ₽</span>
-              </div>
-
-              <button className="cart-card__remove btn-reset">
-                <img src="/images/icons/remove.svg" alt="Удалить товар" />
-              </button>
-            </article>
-          </li>
+          </li> */}
         </ul>
 
         <div className="cart__bottom">
