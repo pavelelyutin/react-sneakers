@@ -4,12 +4,18 @@ import Header from "./components/Header";
 import Cart from "./components/Cart";
 
 function App() {
-  const [cartOpened, setCartOpened] = React.useState(false)
-
+  const [cartOpened, setCartOpened] = React.useState(false);
+  const [cartProducts, setCartProducts] = React.useState([]);
 
   return (
     <div className="wrapper">
-      {cartOpened && <Cart onClose={() => setCartOpened(false)} />}
+      {cartOpened && (
+        <Cart
+          products={cartProducts}
+          onClose={() => setCartOpened(false)}
+          setCartProducts={setCartProducts}
+        />
+      )}
 
       <Header onClickCart={() => setCartOpened(true)} />
 
@@ -24,7 +30,10 @@ function App() {
                 <input type="text" placeholder="Поиск..." />
               </div>
             </div>
-            <ProductsList />
+            <ProductsList
+              cartProducts={cartProducts}
+              setCartProducts={setCartProducts}
+            />
           </div>
         </section>
       </main>

@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './Card.scss'
 
-function Card(props) {
+function Card({addToFavorite, addToCart, title, imageUrl, price}) {
   const [isAdded, setIsAdded] = React.useState(false)
 
   const onClickPlus = () => {
+    addToCart()
     setIsAdded(!isAdded)
   }
 
@@ -14,7 +15,7 @@ function Card(props) {
 
   return (
     <article className="products__card card">
-      <button className="card__add-favorite btn-reset" onClick={props.addToFavorite}>
+      <button className="card__add-favorite btn-reset" onClick={addToFavorite}>
         <img
           className="card__favorite"
           src="/images/icons/favorite-unactive.svg"
@@ -25,14 +26,14 @@ function Card(props) {
         className="card__image"
         width="133"
         height="112"
-        src={props.imageUrl}
-        alt={props.title}
+        src={imageUrl}
+        alt={title}
       />
-      <h3 className="card__title">{props.title}</h3>
+      <h3 className="card__title">{title}</h3>
       <div className="card__bottom">
         <div className="card__price">
           <span className="card__price-title">Цена:</span>
-          <span className="card__price-number">{props.price} ₽</span>
+          <span className="card__price-number">{price} ₽</span>
         </div>
         <button className="card__button-add btn-reset" onClick={onClickPlus}>
           <img src={isAdded ? '/images/icons/checked.svg': '/images/icons/plus.svg'} alt="Добавить в корзину" />

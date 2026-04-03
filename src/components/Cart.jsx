@@ -1,39 +1,39 @@
-function Cart(props) {
+function Cart({onClose, products = []}) {
+
   return (
     <div className="cart">
       <div className="cart__drawer">
         <div className="cart__top">
           <h2 className="cart__title">Корзина</h2>
-          <button className="cart__close btn-reset" onClick={props.onClose}>
+          <button className="cart__close btn-reset" onClick={onClose}>
             <img src="/images/icons/remove.svg" alt="Закрыть корзину" />
           </button>
         </div>
 
         <ul className="cart__list list-reset">
-          {console.log(props.items)}
-          {props.items}
-
-          {/* <li className="cart__item">
+          {products.map(product => (
+          <li className="cart__item" key={product.id}>
             <article className="cart__card cart-card">
               <img
                 width={70}
-                src="/images/products/1.jpg"
-                alt=""
+                src={product.imageUrl}
+                alt={product.title}
                 className="cart-card__image"
               />
               <div className="cart-card__info">
                 {" "}
                 <h3 className="cart-card__title">
-                  Мужские Кроссовки Nike Air Max 270
+                  {product.title}
                 </h3>
-                <span className="cart-card__price">19 999 ₽</span>
+                <span className="cart-card__price">{product.price} ₽</span>
               </div>
 
-              <button className="cart-card__remove btn-reset">
+              <button className="cart-card__remove btn-reset" >
                 <img src="/images/icons/remove.svg" alt="Удалить товар" />
               </button>
             </article>
-          </li> */}
+          </li>
+          ))}
         </ul>
 
         <div className="cart__bottom">
