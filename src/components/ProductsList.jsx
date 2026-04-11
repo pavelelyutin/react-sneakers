@@ -15,23 +15,25 @@ function ProductsList(props) {
   }, []);
 
   const onAddToCart = (obj) => {
-    console.log(obj)
-    props.setCartProducts(prev => [...prev, obj])
-  }
+    console.log(obj);
+    props.setCartProducts((prev) => [...prev, obj]);
+  };
 
   return (
     <ul className="products__list list-reset">
-      {products.map((product) => (
-        <li className="products__item" key={product.id}>
-          <Card
-            title={product.title}
-            price={product.price}
-            imageUrl={product.imageUrl}
-            addToFavorite={() => console.log("Добавили в избранное")}
-            addToCart={() => onAddToCart(product)}
-          />
-        </li>
-      ))}
+      {products
+        .filter((product) => product.title.toLowerCase().includes(props.searchValue.toLowerCase()))
+        .map((product) => (
+          <li className="products__item" key={product.id}>
+            <Card
+              title={product.title}
+              price={product.price}
+              imageUrl={product.imageUrl}
+              addToFavorite={() => console.log("Добавили в избранное")}
+              addToCart={() => onAddToCart(product)}
+            />
+          </li>
+        ))}
     </ul>
   );
 }
