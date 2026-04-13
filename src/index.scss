@@ -10,14 +10,24 @@ body {
   background-color: #f2f2f2;
 }
 
+.body-hidden {
+  overflow: hidden;
+}
+
 img {
   display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .wrapper {
   max-width: 1080px;
   margin: 0 auto;
   margin-top: 50px;
+  margin-bottom: 50px;
   border-radius: 20px;
   background-color: #fff;
 }
@@ -55,6 +65,25 @@ img {
 
   &:active {
     background-color: darken(#9dd458, 10%);
+  }
+}
+
+/* section */
+.section {
+  padding-top: 40px;
+  padding-bottom: 20px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
   }
 }
 
@@ -103,25 +132,18 @@ img {
       color: #5c5c5c;
     }
   }
+
+  &__favorite {
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 /* products */
 .products {
-  padding-top: 40px;
-  padding-bottom: 20px;
-
-  &__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
-
-  &__title {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 700;
-  }
 
   &__list {
     display: grid;
@@ -130,7 +152,7 @@ img {
   }
 }
 
-.search { 
+.search {
   position: relative;
   display: flex;
   align-items: center;
@@ -140,7 +162,7 @@ img {
   padding: 10px 40px 10px 15px;
 
   &__input {
-   
+
     border: none;
     outline: none;
   }
@@ -196,6 +218,18 @@ img {
     font-weight: bold;
   }
 
+  &__info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+
+  }
+
+  &__empty {
+    flex-grow: 1;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
@@ -204,15 +238,18 @@ img {
     flex-grow: 1;
     margin-bottom: 20px;
     overflow: auto;
+    min-height: 0;
   }
 
   &__total {
     margin-bottom: 20px;
+
   }
 
   &__button {
     position: relative;
     width: 100%;
+
 
     &::after {
       content: "→";
@@ -240,6 +277,47 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+
+  &__title {
+    margin: 0;
+    font-size: 22px;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: #bdbdbd;
+  }
+
+  &__button {
+    position: relative;
+    width: 100%;
+
+
+    &::after {
+      content: "←";
+      position: absolute;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      transition: left 0.15s ease-in-out;
+    }
+
+    &:hover {
+      &::after {
+        left: 35px;
+      }
+    }
   }
 }
 

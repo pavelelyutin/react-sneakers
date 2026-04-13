@@ -1,8 +1,10 @@
+import { Link } from "react-router";
+
 function Header(props) {
   return (
     <header className="header">
       <div className="header__container container">
-        <div className="header__left">
+        <Link to="/" className="header__left">
           <img
             src="/images/logo.svg"
             width="40"
@@ -14,9 +16,12 @@ function Header(props) {
             <h1 className="header__title">React sneakers</h1>
             <span className="header__subtitle">Магазин лучших кроссовок</span>
           </div>
-        </div>
+        </Link>
         <div className="header__right">
-          <button className="header__cart btn-reset" onClick={props.onClickCart}>
+          <button
+            className="header__cart btn-reset"
+            onClick={props.onClickCart}
+          >
             <img
               className="header__cart-icon"
               width={20}
@@ -27,14 +32,14 @@ function Header(props) {
             <span className="header__cart-price">1205 ₽</span>
           </button>
 
-          <button className="header__favorite btn-reset">
+          <Link to='/favorites' className="header__favorite btn-reset">
             <img
               width={20}
               height={20}
               src="/images/icons/favorite.svg"
               alt="Избранное"
             />
-          </button>
+          </Link>
 
           <button className="header__user btn-reset">
             <img

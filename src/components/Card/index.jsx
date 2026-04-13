@@ -3,10 +3,16 @@ import styles from './Card.scss'
 
 function Card({addToFavorite, addToCart, title, imageUrl, price}) {
   const [isAdded, setIsAdded] = React.useState(false)
+  const [isFavorite, setIsFavorite] = React.useState(false)
 
   const onClickPlus = () => {
     addToCart()
     setIsAdded(!isAdded)
+  }
+
+  const onClickFavorite = () => {
+    addToFavorite()
+    setIsFavorite(!isFavorite)
   }
 
   React.useEffect(() => {
@@ -15,10 +21,10 @@ function Card({addToFavorite, addToCart, title, imageUrl, price}) {
 
   return (
     <article className="products__card card">
-      <button className="card__add-favorite btn-reset" onClick={addToFavorite}>
+      <button className="card__add-favorite btn-reset" onClick={onClickFavorite}>
         <img
           className="card__favorite"
-          src="/images/icons/favorite-unactive.svg"
+          src={isFavorite ? "/images/icons/favorite-active.svg" : "/images/icons/favorite-unactive.svg"}
           alt="Добавить в избранное"
         />
       </button>
