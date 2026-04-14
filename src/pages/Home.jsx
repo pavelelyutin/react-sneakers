@@ -1,21 +1,14 @@
 import React from "react";
-import axios from "axios";
-import ProductsList from "../components/ProductsList";
+import Card from "../components/Card";
 
-function Home() {
-  const [searchValue, setSearchValue] = React.useState("");
-  const [favorites, setFavorites] = React.useState([]);
-  const [cartProducts, setCartProducts] = React.useState([]);
-
-  const onChangeSearchValue = (event) => {
-    setSearchValue(event.target.value);
-  };
-
-  React.useEffect(() => {
-    axios.get("https://f070f08733d5b515.mokky.dev/favorites").then((res) => {
-      setFavorites(res.data);
-    });
-  }, []);
+function Home({
+  products,
+  searchValue,
+  setSearchValue,
+  onChangeSearchValue,
+  addToFavorite,
+  addToCart,
+}) {
 
   return (
     <section className="section products">
@@ -47,13 +40,23 @@ function Home() {
             )}
           </div>
         </div>
-        <ProductsList
-          searchValue={searchValue}
-          cartProducts={cartProducts}
-          setCartProducts={setCartProducts}
-          favorites={favorites}
-          setFavorites={setFavorites}
-        />
+
+        <ul className="products__list list-reset">
+          {products
+            .filter((product) =>
+              product.title.toLowerCase().includes(searchValue.toLowerCase()),
+            )
+            .map((product) => (
+              <li className="products__item" key={product.id}>
+                <Card
+                  addToFavorite={() => addToFavorite(product)}
+                  addToCart={() => addToCart(product)}
+                  {...product}
+                />
+              </li>
+            ))}
+        </ul>
+
       </div>
     </section>
   );

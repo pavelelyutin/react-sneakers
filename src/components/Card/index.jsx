@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './Card.scss'
 
-function Card({addToFavorite, addToCart, title, imageUrl, price}) {
+function Card({title, imageUrl, price, addToCart, addToFavorite, favorited = false }) {
   const [isAdded, setIsAdded] = React.useState(false)
-  const [isFavorite, setIsFavorite] = React.useState(false)
+  const [isFavorite, setIsFavorite] = React.useState(favorited)
 
   const onClickPlus = () => {
-    addToCart()
+    addToCart( )
     setIsAdded(!isAdded)
   }
 
@@ -14,10 +14,6 @@ function Card({addToFavorite, addToCart, title, imageUrl, price}) {
     addToFavorite()
     setIsFavorite(!isFavorite)
   }
-
-  React.useEffect(() => {
-    console.log('Переменная изменилась')
-  }, [isAdded])
 
   return (
     <article className="products__card card">

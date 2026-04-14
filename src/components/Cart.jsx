@@ -1,22 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-function Cart({ onClose, products = [], setCartProducts, cartProducts }) {
-  React.useEffect(() => {
-    axios
-      .get("https://f070f08733d5b515.mokky.dev/cart")
-      .then((res) => {
-        setCartProducts(res.data);
-      });
-  }, []);
-
-  const removeCartProduct = (id) => {
-    setCartProducts((prev) => prev.filter((product) => product.id !== id));
-    axios.delete(
-      `https://f070f08733d5b515.mokky.dev/cart/${id}`,
-    );
-    console.log(id);
-  };
+function Cart({ onClose, products = [], cartProducts, setCartProducts, removeCartProduct }) {
 
   return (
     <div className="cart">
@@ -47,25 +32,25 @@ function Cart({ onClose, products = [], setCartProducts, cartProducts }) {
         ) : (
           <div className="cart__info">
             <ul className="cart__list list-reset">
-              {products.map((product) => (
-                <li className="cart__item" key={product.id}>
+              {cartProducts.map((cartProduct) => (
+                <li className="cart__item" key={cartProduct.id}>
                   <article className="cart__card cart-card">
                     <img
                       width={70}
-                      src={product.imageUrl}
-                      alt={product.title}
+                      src={cartProduct.imageUrl}
+                      alt={cartProduct.title}
                       className="cart-card__image"
                     />
                     <div className="cart-card__info">
-                      <h3 className="cart-card__title">{product.title}</h3>
+                      <h3 className="cart-card__title">{cartProduct.title}</h3>
                       <span className="cart-card__price">
-                        {product.price} ₽
+                        {cartProduct.price} ₽
                       </span>
                     </div>
 
                     <button
                       className="cart-card__remove btn-reset"
-                      onClick={() => removeCartProduct(product.id)}
+                      onClick={() => removeCartProduct(cartProduct.id)}
                     >
                       <img src="/images/icons/remove.svg" alt="Удалить товар" />
                     </button>

@@ -1,28 +1,30 @@
 import React from "react";
-import ProductsList from "../components/ProductsList";
+import Card from "../components/Card";
 
-function Favorites() {
-
+function Favorites({favoritesProducts, addToFavorite}) {
   return (
     <section className="section favorites">
       <div className="container favorites__container ">
         <div className="section__top">
-          <h2 className="section__title">
-            Избранное
-          </h2>
+          <h2 className="section__title">Избранное</h2>
         </div>
 
-        <p>fasdfasfas</p>
-        {/* <ProductsList
-          searchValue={searchValue}
-          cartProducts={cartProducts}
-          setCartProducts={setCartProducts}
-          favorites={favorites}
-          setFavorites={setFavorites}
-        /> */}
+        <ul className="products__list list-reset">
+          {favoritesProducts
+            .map((favoritesProduct) => (
+              <li className="products__item" key={favoritesProduct.id}>
+                <Card
+                  favorited={true}
+                  addToFavorite={() => addToFavorite(favoritesProduct)}
+                  {...favoritesProduct}
+                />
+              </li>
+            ))}
+        </ul>
+
       </div>
     </section>
   );
 }
 
-export default Favorites
+export default Favorites;
