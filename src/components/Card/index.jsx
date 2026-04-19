@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './Card.scss'
 
-function Card({title, imageUrl, price, addToCart, addToFavorite, favorited = false }) {
+function Card({id, title, imageUrl, price, addToCart, addToFavorite, favorited = false }) {
   const [isAdded, setIsAdded] = React.useState(false)
   const [isFavorite, setIsFavorite] = React.useState(favorited)
 
   const onClickPlus = () => {
-    addToCart( )
+    addToCart({ id, title, imageUrl, price})
     setIsAdded(!isAdded)
   }
 

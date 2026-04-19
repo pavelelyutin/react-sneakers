@@ -26,8 +26,17 @@ function App() {
   }, []);
 
   const addToCart = (obj) => {
-    axios.post("https://f070f08733d5b515.mokky.dev/cart", obj);
-    setCartProducts((prev) => [...prev, obj]);
+    console.log(obj)
+    try {
+      if (cartProducts.find((product) => product.id === obj.id)) {
+        setCartProducts(prev => prev.filter(product => product.id !== obj.id))
+      } else {
+        axios.post('https://f070f08733d5b515.mokky.dev/cart', obj)
+        setCartProducts((prev) => [...prev, obj])
+      }
+    } catch (error) {
+
+    }
   };
 
   const removeCartProduct = (id) => {
@@ -47,7 +56,7 @@ function App() {
         setFavoritesProducts((prev) => [...prev, data]);
       }
     } catch (error) {
-      alert('Не удалось добавить в избранное')
+      alert('Не удалось добавить в избранное:' + error)
     }
   };
 

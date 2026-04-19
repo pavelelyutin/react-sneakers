@@ -126,14 +126,27 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: opacity .2s ease-in-out;
 
     &-price {
       font-weight: 600;
       color: #5c5c5c;
     }
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
 
   &__favorite {
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  &__user {
     transition: opacity .2s ease-in-out;
 
     &:hover {

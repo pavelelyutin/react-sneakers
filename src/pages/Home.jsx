@@ -47,10 +47,11 @@ function Home({
               product.title.toLowerCase().includes(searchValue.toLowerCase()),
             )
             .map((product) => (
-              <li className="products__item" key={product.id}>
+              <li className="products__item">
                 <Card
-                  addToFavorite={() => addToFavorite(product)}
-                  addToCart={() => addToCart(product)}
+                  key={product.id}
+                  addToFavorite={(obj) => addToFavorite(obj)}
+                  addToCart={(obj) => addToCart(obj)}
                   {...product}
                 />
               </li>
