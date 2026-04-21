@@ -14,34 +14,49 @@ function App() {
   const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {
-    axios.get("https://f070f08733d5b515.mokky.dev/products").then((res) => {
-      setProducts(res.data);
-    });
-    axios.get("https://f070f08733d5b515.mokky.dev/cart").then((res) => {
-      setCartProducts(res.data);
-    });
-    axios.get("https://f070f08733d5b515.mokky.dev/favorites").then((res) => {
-      setFavoritesProducts(res.data);
-    });
+    async function fetchData() {
+      const cartResponse = await axios.get(
+        "https://f070f08733d5b515.mokky.dev/cart",
+      );
+      const favoritesResponse = await axios.get(
+        "https://f070f08733d5b515.mokky.dev/favorites",
+      );
+      const productsResponse = await axios.get(
+        "https://f070f08733d5b515.mokky.dev/products",
+      );
+
+      setCartProducts(cartResponse.data);
+      setFavoritesProducts(favoritesResponse.data);
+      setProducts(productsResponse.data);
+    }
+
+    fetchData()
   }, []);
 
-  const addToCart = (obj) => {
-    console.log(obj)
+  const addToCart = async (obj) => {
     try {
-      if (cartProducts.find((product) => product.id === obj.id)) {
-        setCartProducts(prev => prev.filter(product => product.id !== obj.id))
+      if (
+        cartProducts.find((cartProduct) => Number(cartProduct.id) === Number(obj.id))
+      ) {
+        axios.delete(`https://f070f08733d5b515.mokky.dev/cart/${obj.id}`);
+        setCartProducts((prev) =>
+          prev.filter((cartProduct) => Number(cartProduct.id) !== Number(obj.id)),
+        );
       } else {
-        axios.post('https://f070f08733d5b515.mokky.dev/cart', obj)
-        setCartProducts((prev) => [...prev, obj])
+        const { data } = await axios.post(
+          "https://f070f08733d5b515.mokky.dev/cart",
+          obj,
+        );
+        setCartProducts((prev) => [...prev, data]);
       }
     } catch (error) {
-
+      alert("Ошибка: " + error);
     }
   };
 
   const removeCartProduct = (id) => {
-    setCartProducts((prev) => prev.filter((product) => product.id !== id));
     axios.delete(`https://f070f08733d5b515.mokky.dev/cart/${id}`);
+    setCartProducts((prev) => prev.filter((product) => product.id !== id));
   };
 
   const addToFavorite = async (obj) => {
@@ -56,7 +71,7 @@ function App() {
         setFavoritesProducts((prev) => [...prev, data]);
       }
     } catch (error) {
-      alert('Не удалось добавить в избранное:' + error)
+      alert("Не удалось добавить в избранное:" + error);
     }
   };
 
@@ -85,6 +100,7 @@ function App() {
             element={
               <Home
                 products={products}
+                cartProducts={cartProducts}
                 searchValue={searchValue}
                 onChangeSearchValue={onChangeSearchValue}
                 addToCart={addToCart}

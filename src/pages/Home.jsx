@@ -3,6 +3,7 @@ import Card from "../components/Card";
 
 function Home({
   products,
+  cartProducts,
   searchValue,
   setSearchValue,
   onChangeSearchValue,
@@ -40,19 +41,18 @@ function Home({
             )}
           </div>
         </div>
-
         <ul className="products__list list-reset">
           {products
             .filter((product) =>
               product.title.toLowerCase().includes(searchValue.toLowerCase()),
             )
             .map((product) => (
-              <li className="products__item">
+              <li className="products__item" key={product.id}>
                 <Card
-                  key={product.id}
-                  addToFavorite={(obj) => addToFavorite(obj)}
-                  addToCart={(obj) => addToCart(obj)}
+                  addToFavorite={() => addToFavorite(product)}
+                  addToCart={() => addToCart(product)}
                   {...product}
+                  added={cartProducts.some(cartProduct => Number(cartProduct.id) === Number(product.id))}
                 />
               </li>
             ))}
