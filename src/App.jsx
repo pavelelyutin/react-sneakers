@@ -12,9 +12,12 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [favoritesProducts, setFavoritesProducts] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
+
       const cartResponse = await axios.get(
         "https://f070f08733d5b515.mokky.dev/cart",
       );
@@ -24,6 +27,8 @@ function App() {
       const productsResponse = await axios.get(
         "https://f070f08733d5b515.mokky.dev/products",
       );
+      
+      setIsLoading(false)
 
       setCartProducts(cartResponse.data);
       setFavoritesProducts(favoritesResponse.data);
@@ -55,8 +60,9 @@ function App() {
   };
 
   const removeCartProduct = (id) => {
+    console.log(cartProducts)
     axios.delete(`https://f070f08733d5b515.mokky.dev/cart/${id}`);
-    setCartProducts((prev) => prev.filter((product) => product.id !== id));
+    setCartProducts((prev) => prev.filter((product) => product.id !== (id)));
   };
 
   const addToFavorite = async (obj) => {
@@ -105,6 +111,7 @@ function App() {
                 onChangeSearchValue={onChangeSearchValue}
                 addToCart={addToCart}
                 addToFavorite={addToFavorite}
+                isLoading={isLoading}
               />
             }
           />

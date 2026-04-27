@@ -9,7 +9,27 @@ function Home({
   onChangeSearchValue,
   addToFavorite,
   addToCart,
+  isLoading,
 }) {
+  const renderProducts = () => {
+    const filteredProducts = products.filter((product) =>
+      product.title.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+    return (isLoading ? [...Array(8)] : filteredProducts)
+      .map((product, index) => (
+      <li className="products__item" key={index}>
+        <Card
+          addToFavorite={() => addToFavorite(product)}
+          addToCart={() => addToCart(product)}
+          {...product}
+          added={cartProducts.some(
+            (cartProduct) => Number(cartProduct.id) === Number(product.id),
+          )}
+          loading={isLoading}
+        />
+      </li>
+    ));
+  };
 
   return (
     <section className="section products">
@@ -41,23 +61,7 @@ function Home({
             )}
           </div>
         </div>
-        <ul className="products__list list-reset">
-          {products
-            .filter((product) =>
-              product.title.toLowerCase().includes(searchValue.toLowerCase()),
-            )
-            .map((product) => (
-              <li className="products__item" key={product.id}>
-                <Card
-                  addToFavorite={() => addToFavorite(product)}
-                  addToCart={() => addToCart(product)}
-                  {...product}
-                  added={cartProducts.some(cartProduct => Number(cartProduct.id) === Number(product.id))}
-                />
-              </li>
-            ))}
-        </ul>
-
+        <ul className="products__list list-reset">{renderProducts()}</ul>
       </div>
     </section>
   );
