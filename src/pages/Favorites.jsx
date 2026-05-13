@@ -1,10 +1,13 @@
 import React from "react";
 import Card from "../components/Card";
+import AppContext from "../context";
 
-function Favorites({favoritesProducts, addToFavorite}) {
+function Favorites({addToFavorite}) {
+  const { favoritesProducts } = React.useContext(AppContext)
+
   return (
     <section className="section favorites">
-      <div className="container favorites__container ">
+      <div className="container favorites__container">
         <div className="section__top">
           <h2 className="section__title">Избранное</h2>
         </div>

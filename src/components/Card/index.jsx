@@ -1,6 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 import styles from "./Card.scss";
+import AppContext from "../../context";
 
 function Card({
   id,
@@ -10,15 +11,15 @@ function Card({
   addToCart,
   addToFavorite,
   favorited = false,
-  added = false,
   loading = false,
 }) {
-  const [isAdded, setIsAdded] = React.useState(added);
+  const { isItemAdded } = React.useContext(AppContext);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
+
+  console.log(title, isItemAdded(id))
 
   const onClickPlus = () => {
     addToCart(id, title, imageUrl, price);
-    setIsAdded(!isAdded);
   };
 
   const onClickFavorite = () => {
@@ -77,11 +78,7 @@ function Card({
               onClick={onClickPlus}
             >
               <img
-                src={
-                  isAdded
-                    ? "/images/icons/checked.svg"
-                    : "/images/icons/plus.svg"
-                }
+                src={ isItemAdded(id) ? "/images/icons/checked.svg" : "/images/icons/plus.svg" }
                 alt="Добавить в корзину"
               />
             </button>

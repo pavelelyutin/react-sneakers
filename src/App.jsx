@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Cart from "./components/Cart";
 import Favorites from "./pages/Favorites";
+import AppContext from "./context";
 
 function App() {
   const [products, setProducts] = React.useState([]);
@@ -12,11 +13,11 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [favoritesProducts, setFavoritesProducts] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchData() {
-      setIsLoading(true)
+      setIsLoading(true);
 
       const cartResponse = await axios.get(
         "https://f070f08733d5b515.mokky.dev/cart",
@@ -27,26 +28,29 @@ function App() {
       const productsResponse = await axios.get(
         "https://f070f08733d5b515.mokky.dev/products",
       );
-      
-      setIsLoading(false)
+
+      setIsLoading(false);
 
       setCartProducts(cartResponse.data);
       setFavoritesProducts(favoritesResponse.data);
       setProducts(productsResponse.data);
     }
 
-    fetchData()
+    fetchData();
   }, []);
 
   const addToCart = async (obj) => {
     try {
-      if (
-        cartProducts.find((cartProduct) => Number(cartProduct.id) === Number(obj.id))
-      ) {
-        axios.delete(`https://f070f08733d5b515.mokky.dev/cart/${obj.id}`);
+      const findItem = cartProducts.find(
+        (cartProduct) => Number(cartProduct.id) === Number(obj.id),
+      )
+      if (findItem) {
         setCartProducts((prev) =>
-          prev.filter((cartProduct) => Number(cartProduct.id) !== Number(obj.id)),
+          prev.filter(
+            (cartProduct) => Number(cartProduct.id) !== Number(obj.id),
+          ),
         );
+        axios.delete(`https://f070f08733d5b515.mokky.dev/cart/${findItem.id}`);
       } else {
         const { data } = await axios.post(
           "https://f070f08733d5b515.mokky.dev/cart",
@@ -60,9 +64,9 @@ function App() {
   };
 
   const removeCartProduct = (id) => {
-    console.log(cartProducts)
+    console.log(cartProducts);
     axios.delete(`https://f070f08733d5b515.mokky.dev/cart/${id}`);
-    setCartProducts((prev) => prev.filter((product) => product.id !== (id)));
+    setCartProducts((prev) => prev.filter((product) => product.id !== id));
   };
 
   const addToFavorite = async (obj) => {
@@ -85,50 +89,55 @@ function App() {
     setSearchValue(event.target.value);
   };
 
+  const isItemAdded = (id) => {
+    return cartProducts.some((obj) => Number(obj.id) === Number(id));
+  };
+
   return (
-    <div className="wrapper">
-      {cartOpened && (
-        <Cart
-          products={cartProducts}
-          onClose={() => setCartOpened(false)}
-          setCartProducts={setCartProducts}
-          cartProducts={cartProducts}
-          removeCartProduct={removeCartProduct}
-        />
-      )}
-
-      <Header onClickCart={() => setCartOpened(true)} />
-
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                products={products}
-                cartProducts={cartProducts}
-                searchValue={searchValue}
-                onChangeSearchValue={onChangeSearchValue}
-                addToCart={addToCart}
-                addToFavorite={addToFavorite}
-                isLoading={isLoading}
-              />
-            }
+    <AppContext.Provider value={{ products, cartProducts, favoritesProducts, isItemAdded }}>
+      <div className="wrapper">
+        {cartOpened && (
+          <Cart
+            products={cartProducts}
+            onClose={() => setCartOpened(false)}
+            setCartProducts={setCartProducts}
+            cartProducts={cartProducts}
+            removeCartProduct={removeCartProduct}
           />
-          <Route
-            path="/favorites"
-            element={
-              <Favorites
-                favoritesProducts={favoritesProducts}
-                addToFavorite={addToFavorite}
-              />
-            }
-          />
-        </Routes>
-      </main>
+        )}
 
-      <footer></footer>
-    </div>
+        <Header onClickCart={() => setCartOpened(true)} />
+
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  products={products}
+                  cartProducts={cartProducts}
+                  searchValue={searchValue}
+                  onChangeSearchValue={onChangeSearchValue}
+                  addToCart={addToCart}
+                  addToFavorite={addToFavorite}
+                  isLoading={isLoading}
+                />
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <Favorites
+                  addToFavorite={addToFavorite}
+                />
+              }
+            />
+          </Routes>
+        </main>
+
+        <footer></footer>
+      </div>
+    </AppContext.Provider>
   );
 }
 

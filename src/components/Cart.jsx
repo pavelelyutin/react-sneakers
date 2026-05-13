@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 function Cart({ onClose, products = [], cartProducts, setCartProducts, removeCartProduct }) {
   return (
